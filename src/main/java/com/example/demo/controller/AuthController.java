@@ -10,8 +10,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:9090"}) 
-// Allows both dev React (3000) and deployed React (9090) to call backend
+// Allow frontend dev server (5173) and deployed frontend (9090)
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:9090"})
 public class AuthController {
 
     private final AuthService authService;
@@ -28,9 +28,7 @@ public class AuthController {
             res.put("token", token);
             return ResponseEntity.ok(res);
         } catch (Exception e) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(Map.of("message", e.getMessage()));
+            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         }
     }
 
@@ -40,9 +38,7 @@ public class AuthController {
             String token = authService.login(req.get("email"), req.get("password"));
             return ResponseEntity.ok(Map.of("token", token));
         } catch (Exception e) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(Map.of("message", e.getMessage()));
+            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         }
     }
 }
