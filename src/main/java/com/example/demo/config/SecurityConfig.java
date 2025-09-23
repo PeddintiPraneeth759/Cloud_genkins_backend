@@ -14,22 +14,20 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/api/auth/**").permitAll()  // login/register open
-                    .requestMatchers("/api/profile/**").authenticated() // profile requires token
-                    .anyRequest().authenticated()
+                .requestMatchers("/api/auth/**").permitAll()   // open login/register
+                .anyRequest().authenticated()
             )
             .cors(); // enable CORS
         return http.build();
     }
 
-    // CORS config
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173")
+                        .allowedOrigins("http://localhost:5173", "http://localhost:9090")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
