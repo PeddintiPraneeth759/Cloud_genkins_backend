@@ -41,6 +41,13 @@
             <version>3.0.2</version>
         </dependency>
 
+        <!-- ✅ Jakarta Activation (needed for Tomcat WAR runtime) -->
+        <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+
         <!-- JWT -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -83,7 +90,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Tomcat provided (✅ external container will provide it) -->
+        <!-- ✅ Tomcat provided (external container) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
@@ -107,13 +114,17 @@
     </dependencies>
 
     <build>
+        <!-- ✅ ensure WAR is always ROOT.war -->
+        <finalName>ROOT</finalName>
+
         <plugins>
-            <!-- Spring Boot WAR build plugin -->
+            <!-- ✅ Spring Boot WAR build plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <skip>false</skip>
+                    <!-- use WAR layout so Tomcat can run it -->
+                    <layout>WAR</layout>
                 </configuration>
             </plugin>
         </plugins>
