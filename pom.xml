@@ -16,7 +16,7 @@
     <artifactId>food</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>food</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Food App Backend</description>
 
     <!-- ✅ WAR packaging -->
     <packaging>war</packaging>
@@ -28,24 +28,33 @@
     </properties>
 
     <dependencies>
-        <!-- Spring Security -->
+        <!-- Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- Jakarta Validation -->
+        <!-- JPA + MySQL -->
         <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-            <version>3.0.2</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-
-        <!-- ✅ Jakarta Activation (needed for Tomcat WAR runtime) -->
         <dependency>
-            <groupId>jakarta.activation</groupId>
-            <artifactId>jakarta.activation-api</artifactId>
-            <version>2.1.2</version>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- JWT -->
@@ -67,30 +76,14 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Core Spring Boot -->
+        <!-- Validation -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.2</version>
         </dependency>
 
-        <!-- Web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- JPA + MySQL -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!-- ✅ Tomcat provided (external container) -->
+        <!-- Tomcat provided (because we use external Tomcat) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
@@ -105,7 +98,7 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Testing -->
+        <!-- Tests -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -114,17 +107,13 @@
     </dependencies>
 
     <build>
-        <!-- ✅ ensure WAR is always ROOT.war -->
-        <finalName>ROOT</finalName>
-
+        <finalName>ROOT</finalName> <!-- ✅ Always build as ROOT.war -->
         <plugins>
-            <!-- ✅ Spring Boot WAR build plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <!-- use WAR layout so Tomcat can run it -->
-                    <layout>WAR</layout>
+                    <skip>false</skip>
                 </configuration>
             </plugin>
         </plugins>
