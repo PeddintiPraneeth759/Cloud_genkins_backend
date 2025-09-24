@@ -8,10 +8,9 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication
 public class FoodApplication extends SpringBootServletInitializer {
 
-    // This ensures Spring Boot runs inside external Tomcat
     @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(FoodApplication.class);
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(FoodApplication.class);
     }
 
     public static void main(String[] args) {
