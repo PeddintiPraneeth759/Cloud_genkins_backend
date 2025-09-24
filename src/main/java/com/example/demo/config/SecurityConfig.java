@@ -14,7 +14,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**").permitAll()   // open login/register
+                .requestMatchers("/api/auth/**").permitAll()   // allow login/register
                 .anyRequest().authenticated()
             )
             .cors(); // enable CORS
@@ -27,10 +27,10 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173", "http://localhost:9090")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*")
-                        .allowCredentials(true);
+                        .allowedOrigins("*")        // ✅ allow any frontend origin
+                        .allowedMethods("*")        // ✅ allow all HTTP methods
+                        .allowedHeaders("*")        // ✅ allow any header
+                        .allowCredentials(false);   // ⚠️ cannot use true with "*"
             }
         };
     }
