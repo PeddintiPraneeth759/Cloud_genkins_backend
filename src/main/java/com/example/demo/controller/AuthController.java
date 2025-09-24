@@ -11,7 +11,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
 // Allow frontend dev server (5173) and deployed frontend (9090)
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:9090"})
+//@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:9090"})
 public class AuthController {
 
     private final AuthService authService;
